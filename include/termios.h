@@ -38,6 +38,22 @@
 #define TCSASOFT 0
 #endif
 
+#ifndef VSTATUS
+#define VSTATUS		18	/* ICANON */
+#endif
+
+#ifndef VDSUSP
+#define VDSUSP		11	/* ISIG */
+#endif
+
+#ifndef _POSIX_VDISABLE
+#define	_POSIX_VDISABLE		(0377)
+#endif
+
+#ifndef ALTWERASE
+#define ALTWERASE	0x00000200	/* use alternate WERASE algorithm */
+#endif
+
 #ifndef CCEQ
 #define CCEQ(val, c) (c == val ? val != _POSIX_VDISABLE : 0)
 #endif

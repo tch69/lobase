@@ -1,6 +1,7 @@
 #	$OpenBSD: Makefile,v 1.15 2016/03/30 06:38:40 jmc Exp $
 
-.TOPDIR?=../..
+
+TOPDIR?=../..
 
 PROG=	md5
 SRCS=	crc.c md5.c

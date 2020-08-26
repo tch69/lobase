@@ -1,5 +1,7 @@
 SUBDIR=	lib bin sbin usr.bin usr.sbin libexec share distrib
 
+TOPDIR = $(shell pwd)
+
 ifeq (clean,$(filter clean,$(MAKECMDGOALS)))
 SUBDIR+=regress
 endif

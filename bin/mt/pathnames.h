@@ -1,8 +1,8 @@
-/*	$OpenBSD: rmdir.c,v 1.14 2019/06/28 13:34:59 deraadt Exp $	*/
-/*	$NetBSD: rmdir.c,v 1.13 1995/03/21 09:08:31 cgd Exp $	*/
+/*	$OpenBSD: pathnames.h,v 1.2 2003/06/02 23:32:08 millert Exp $	*/
+/*	$NetBSD: pathnames.h,v 1.1 1996/03/05 20:39:40 scottr Exp $	*/
 
-/*-
- * Copyright (c) 1992, 1993, 1994
+/*
+ * Copyright (c) 1989, 1993
  *	The Regents of the University of California.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,84 +30,6 @@
  * SUCH DAMAGE.
  */
 
-#include <err.h>
-#include <errno.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
+#include <paths.h>
 
-extern char *__progname;
-
-int rm_path(char *);
-static void __dead usage(void);
-
-int
-main(int argc, char *argv[])
-{
-	int ch, errors;
-	int pflag;
-
-	if (pledge("stdio cpath", NULL) == -1)
-		err(1, "pledge");
-
-	pflag = 0;
-	while ((ch = getopt(argc, argv, "p")) != -1)
-		switch(ch) {
-		case 'p':
-			pflag = 1;
-			break;
-		default:
-			usage();
-		}
-	argc -= optind;
-	argv += optind;
-
-	if (argc == 0)
-		usage();
-
-	for (errors = 0; *argv; argv++) {
-		char *p;
-
-		/* Delete trailing slashes, per POSIX. */
-		p = *argv + strlen(*argv);
-		while (--p > *argv && *p == '/')
-			continue;
-		*++p = '\0';
-
-		if (rmdir(*argv) == -1) {
-			warn("%s", *argv);
-			errors = 1;
-		} else if (pflag)
-			errors |= rm_path(*argv);
-	}
-
-	return (errors);
-}
-
-int
-rm_path(char *path)
-{
-	char *p;
-
-	while ((p = strrchr(path, '/')) != NULL) {
-		/* Delete trailing slashes. */
-		while (--p > path && *p == '/')
-			continue;
-		*++p = '\0';
-
-		if (rmdir(path) == -1) {
-			warn("%s", path);
-			return (1);
-		}
-	}
-
-	return (0);
-}
-
-static void __dead
-usage(void)
-{
-	fprintf(stderr, "usage: %s [-p] directory ...\n", __progname);
-	exit(1);
-}
+#define	_PATH_RMT	"/etc/rmt"

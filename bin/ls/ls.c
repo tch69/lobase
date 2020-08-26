@@ -1,4 +1,4 @@
-/*	$OpenBSD: ls.c,v 1.50 2018/02/04 22:09:33 deraadt Exp $	*/
+/*	$OpenBSD: ls.c,v 1.51 2018/09/13 15:23:32 millert Exp $	*/
 /*	$NetBSD: ls.c,v 1.18 1996/07/09 09:16:29 mycroft Exp $	*/
 
 /*
@@ -73,9 +73,7 @@ int sortkey = BY_NAME;
 int f_accesstime;		/* use time of last access */
 int f_column;			/* columnated format */
 int f_columnacross;		/* columnated format, sorted across */
-#if HAVE_CHFLAGS
 int f_flags;			/* show flags associated with a file */
-#endif
 int f_grouponly;		/* long listing format without owner */
 int f_humanval;			/* show human-readable file sizes */
 int f_inode;			/* print inode */
@@ -435,8 +433,9 @@ display(FTSENT *p, FTSENT *list)
 	int bcfile, flen, glen, ulen, maxflags, maxgroup, maxuser, maxlen;
 	int entries, needstats;
 	int width;
-	char *user, *group, buf[21];	/* 64 bits == 20 digits */
+	const char *user, *group;
 	char nuser[12], ngroup[12];
+	char buf[21];	/* 64 bits == 20 digits */
 #if HAVE_CHFLAGS
 	char *flags = NULL;
 #endif

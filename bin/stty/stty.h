@@ -32,6 +32,10 @@
  *	@(#)stty.h	8.1 (Berkeley) 5/31/93
  */
 
+ 	
+
+#include <sys/ioctl.h>
+
 struct info {
 	int fd;					/* file descriptor */
 	int ldisc;				/* line discipline */

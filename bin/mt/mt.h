@@ -1,8 +1,8 @@
-/*	$OpenBSD: rmdir.c,v 1.14 2019/06/28 13:34:59 deraadt Exp $	*/
-/*	$NetBSD: rmdir.c,v 1.13 1995/03/21 09:08:31 cgd Exp $	*/
+/*	$OpenBSD: mt.h,v 1.3 2003/06/02 23:32:08 millert Exp $	*/
+/*	$NetBSD: mt.h,v 1.1 1996/03/05 20:39:36 scottr Exp $	*/
 
 /*-
- * Copyright (c) 1992, 1993, 1994
+ * Copyright (c) 1980, 1993
  *	The Regents of the University of California.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,84 +30,19 @@
  * SUCH DAMAGE.
  */
 
-#include <err.h>
-#include <errno.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
+/* rmt routines */
+void	rmtclose(void);
+int	rmthost(char *host);
+int	rmtopen(char *tape, int mode);
+int	rmtioctl(int command, int count);
+struct mtget *rmtstatus(void);
 
-extern char *__progname;
+void	interrupt(int signo);	/* in case operator bangs on console */
 
-int rm_path(char *);
-static void __dead usage(void);
-
-int
-main(int argc, char *argv[])
-{
-	int ch, errors;
-	int pflag;
-
-	if (pledge("stdio cpath", NULL) == -1)
-		err(1, "pledge");
-
-	pflag = 0;
-	while ((ch = getopt(argc, argv, "p")) != -1)
-		switch(ch) {
-		case 'p':
-			pflag = 1;
-			break;
-		default:
-			usage();
-		}
-	argc -= optind;
-	argv += optind;
-
-	if (argc == 0)
-		usage();
-
-	for (errors = 0; *argv; argv++) {
-		char *p;
-
-		/* Delete trailing slashes, per POSIX. */
-		p = *argv + strlen(*argv);
-		while (--p > *argv && *p == '/')
-			continue;
-		*++p = '\0';
-
-		if (rmdir(*argv) == -1) {
-			warn("%s", *argv);
-			errors = 1;
-		} else if (pflag)
-			errors |= rm_path(*argv);
-	}
-
-	return (errors);
-}
-
-int
-rm_path(char *path)
-{
-	char *p;
-
-	while ((p = strrchr(path, '/')) != NULL) {
-		/* Delete trailing slashes. */
-		while (--p > path && *p == '/')
-			continue;
-		*++p = '\0';
-
-		if (rmdir(path) == -1) {
-			warn("%s", path);
-			return (1);
-		}
-	}
-
-	return (0);
-}
-
-static void __dead
-usage(void)
-{
-	fprintf(stderr, "usage: %s [-p] directory ...\n", __progname);
-	exit(1);
-}
+/*
+ *	Exit status codes
+ */
+#define	X_FINOK		0	/* normal exit */
+#define	X_USAGE		1	/* invalid usage, no action performed */
+#define	X_REWRITE	2	/* restart writing from the check point */
+#define	X_ABORT		3	/* abort dump; don't attempt checkpointing */

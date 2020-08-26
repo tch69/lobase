@@ -31,7 +31,6 @@
  */
 
 #include <sys/types.h>
-#include <sys/ioctl.h>
 
 #include <stddef.h>
 #include <string.h>
@@ -139,10 +138,8 @@ const struct modes lmodes[] = {
 	{ "-echoke",	0, ECHOKE },
 	{ "crtkill",	ECHOKE, 0 },
 	{ "-crtkill",	0, ECHOKE },
-#if ALTWERASE
 	{ "altwerase",	ALTWERASE, 0 },
 	{ "-altwerase",	0, ALTWERASE },
-#endif
 	{ "iexten",	IEXTEN, 0 },
 	{ "-iexten",	0, IEXTEN },
 	{ "echonl",	ECHONL, 0 },

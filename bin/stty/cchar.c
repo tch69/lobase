@@ -32,7 +32,6 @@
 
 #include <sys/types.h>
 #include <sys/ioctl.h>
-#include <sys/ttydefaults.h>
 
 #include <err.h>
 #include <limits.h>
@@ -40,7 +39,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <termios.h>
-#include <unistd.h>
 
 #include "stty.h"
 #include "extern.h"
@@ -54,9 +52,7 @@
  */
 const struct cchar cchars1[] = {
 	{ "discard",	VDISCARD, 	CDISCARD },
-#if 0
 	{ "dsusp", 	VDSUSP,		CDSUSP },
-#endif
 	{ "eof",	VEOF,		CEOF },
 	{ "eol",	VEOL,		CEOL },
 	{ "eol2",	VEOL2,		CEOL },
@@ -68,9 +64,7 @@ const struct cchar cchars1[] = {
 	{ "quit",	VQUIT,		CQUIT },
 	{ "reprint",	VREPRINT, 	CREPRINT },
 	{ "start",	VSTART,		CSTART },
-#if 0
 	{ "status",	VSTATUS, 	CSTATUS },
-#endif
 	{ "stop",	VSTOP,		CSTOP },
 	{ "susp",	VSUSP,		CSUSP },
 	{ "time",	VTIME,		CTIME },
