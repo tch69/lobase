@@ -52,9 +52,7 @@ typedef struct _key {
 /* NB: the following table must be sorted lexically. */
 static KEY keylist[] = {
 	{"cksum",	F_CKSUM,	NEEDVALUE},
-#ifdef HAVE_CHFLAGS
 	{"flags",	F_FLAGS,	NEEDVALUE},
-#endif
 	{"gid",		F_GID,		NEEDVALUE},
 	{"gname",	F_GNAME,	NEEDVALUE},
 	{"ignore",	F_IGN,		0},

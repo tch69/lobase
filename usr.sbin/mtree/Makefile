@@ -1,6 +1,7 @@
 #	$OpenBSD: Makefile,v 1.9 2013/04/15 06:25:18 deraadt Exp $
 
-.TOPDIR?=../..
+
+TOPDIR?=../..
 
 PROG=	mtree
 #CFLAGS+=-DDEBUG
