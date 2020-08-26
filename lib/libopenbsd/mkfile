@@ -24,6 +24,7 @@ OFILES=\
 	heapsort.$O\
 	merge.$O\
 	pledge-noop.$O\
+	unveil-noop.$O\
 	progname.$O\
 	qsort.$O\
 	radixsort.$O\
