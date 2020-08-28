@@ -9,6 +9,6 @@ SRCS=	mt.c mtrmt.c
 DPADD=	${LIBUTIL}
 LDADD=	-loutil
 
-LINKS=	${BINDIR}/mt ${BINDIR}/eject
+LINKS=	mt ${DESTDIR}${BINDIR}/eject
 
 include ${.TOPDIR}/mk/bsd.prog.mk

@@ -5,6 +5,6 @@ TOPDIR?=../..
 
 PROG=	mknod
 MAN=	mknod.8 mkfifo.1
-LINKS=	${BINDIR}/mknod ${BINDIR}/mkfifo
+LINKS=	mknod ${DESTDIR}${BINDIR}/mkfifo
 
 include ${.TOPDIR}/mk/bsd.prog.mk

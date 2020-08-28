@@ -5,18 +5,17 @@ TOPDIR?=../..
 
 PROG=	chmod
 MAN=	chmod.1 chgrp.1 chown.8 chflags.1
-LINKS=	${BINDIR}/chmod ${BINDIR}/chgrp \
-	${BINDIR}/chmod /sbin/chown
+LINKS=	chmod ${DESTDIR}${BINDIR}/chgrp \
+	chmod ${DESTDIR}${BINDIR}/chown
 
 # XXX compatibility
 afterinstall:
 	(cd ${DESTDIR}/usr/sbin && \
-	    ln -sf ../../sbin/chown . && \
-	    ln -sf ../../bin/chgrp . && \
+	    ln -sf chown . && \
+	    ln -sf chgrp . && \
 	    chown -h ${BINOWN}:${BINGRP} chown chgrp)
 	(cd ${DESTDIR}/usr/bin && \
-	    ln -sf ../../bin/chmod chflags && \
+	    ln -sf chmod chflags && \
 	    chown -h ${BINOWN}:${BINGRP} chflags)
-
 
 include ${.TOPDIR}/mk/bsd.prog.mk
