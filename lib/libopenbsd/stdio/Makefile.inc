@@ -3,4 +3,6 @@
 # stdio sources
 VPATH+=	${LIBCSRCDIR}/stdio
 
+SRCS+= funopen.c fpurge.c
+
 MAN+=	fgetwln.3
