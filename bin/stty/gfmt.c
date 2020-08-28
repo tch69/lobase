@@ -40,6 +40,13 @@
 #include "stty.h"
 #include "extern.h"
 
+#ifdef __linux__
+# ifndef __GLIBC__
+#  define c_ispeed __c_ispeed
+#  define o_ispeed __o_ispeed
+# endif
+#endif
+
 static void
 gerr(char *s)
 {
