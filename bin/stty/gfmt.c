@@ -43,7 +43,7 @@
 #ifdef __linux__
 # ifndef __GLIBC__
 #  define c_ispeed __c_ispeed
-#  define o_ispeed __o_ispeed
+#  define c_ospeed __c_ospeed
 # endif
 #endif
 
