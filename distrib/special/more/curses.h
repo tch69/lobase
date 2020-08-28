@@ -36,6 +36,12 @@
 
 #include <stdio.h>
 
+#ifdef __linux__
+# ifndef __GLIBC__
+#  define __va_list va_list
+# endif
+#endif
+
 #define	bool	char
 
 #ifndef TRUE

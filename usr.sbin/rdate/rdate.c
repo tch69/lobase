@@ -51,11 +51,11 @@
 #include <time.h>
 
 /* there are systems without libutil; for portability */
-#ifndef NO_UTIL
-#include <util.h>
-#else
+//#ifndef NO_UTIL
+//#include <util.h>
+//#else
 #define logwtmp(a,b,c)
-#endif
+//#endif
 
 void rfc868time_client(const char *, int, struct timeval *, struct timeval *, int);
 void ntp_client(const char *, int, struct timeval *, struct timeval *, int);
