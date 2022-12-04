@@ -50,8 +50,6 @@
 #include <utime.h>
 #include <libgen.h>
 
-#include "pathnames.h"
-
 #define MINIMUM(a, b)	(((a) < (b)) ? (a) : (b))
 
 #define	DIRECTORY	0x01		/* Tell install it's a directory. */
@@ -563,11 +561,14 @@ void
 strip(char *to_name)
 {
 	int serrno, status;
-	char * volatile path_strip;
+	char * volatile strip_bin;
 	pid_t pid;
 
-	if (issetugid() || (path_strip = getenv("STRIP")) == NULL)
-		path_strip = _PATH_STRIP;
+	/* lobase doesn't hardcode strip(1) path */
+	char * strip_args[] = { "--strip-unneeded", "--", to_name, NULL };
+
+	if (issetugid() || (strip_bin = getenv("STRIP")) == NULL)
+		strip_bin = "strip";
 
 	switch ((pid = vfork())) {
 	case -1:
@@ -575,8 +576,8 @@ strip(char *to_name)
 		(void)unlink(to_name);
 		errc(1, serrno, "forks");
 	case 0:
-		execl(path_strip, "strip", "--", to_name, (char *)NULL);
-		warn("%s", path_strip);
+		execvp(strip_bin, strip_args);
+		warn("%s", strip_bin);
 		_exit(1);
 	default:
 		while (waitpid(pid, &status, 0) == -1) {
